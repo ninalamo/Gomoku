@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gomoku-WebApp", "Gomoku-WebApp\Gomoku-WebApp.csproj", "{58958F31-266F-4949-A4B8-4C832DB38C6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gomoku.Domain", "Gomoku.Domain\Gomoku.Domain.csproj", "{B9822BB4-B9B4-47C2-A610-3C18EB432598}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gomoku.Domain.Test", "Gomoku.Domain.Test\Gomoku.Domain.Test.csproj", "{0E6A34F7-447F-4F44-B8AB-CD5589F114E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gomoku.Infrastructure", "Gomoku.Infrastructure\Gomoku.Infrastructure.csproj", "{42A79EEE-0BFD-4C6F-876F-9B91C395250F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gomoku.Infrastructure.Test", "Gomoku.Infrastructure.Test\Gomoku.Infrastructure.Test.csproj", "{3E7AB202-6352-4B8C-BE28-997809A3969F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gomoku.Application", "Gomoku.Application\Gomoku.Application.csproj", "{A81A26DB-A9EA-4474-86D0-872285445025}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{182C3B17-2824-4230-B91B-9188613A73C6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{EBCE7B31-E3D0-4758-8387-35EF61D61514}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{58958F31-266F-4949-A4B8-4C832DB38C6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58958F31-266F-4949-A4B8-4C832DB38C6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58958F31-266F-4949-A4B8-4C832DB38C6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58958F31-266F-4949-A4B8-4C832DB38C6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9822BB4-B9B4-47C2-A610-3C18EB432598}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9822BB4-B9B4-47C2-A610-3C18EB432598}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9822BB4-B9B4-47C2-A610-3C18EB432598}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9822BB4-B9B4-47C2-A610-3C18EB432598}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E6A34F7-447F-4F44-B8AB-CD5589F114E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E6A34F7-447F-4F44-B8AB-CD5589F114E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E6A34F7-447F-4F44-B8AB-CD5589F114E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E6A34F7-447F-4F44-B8AB-CD5589F114E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42A79EEE-0BFD-4C6F-876F-9B91C395250F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42A79EEE-0BFD-4C6F-876F-9B91C395250F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42A79EEE-0BFD-4C6F-876F-9B91C395250F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42A79EEE-0BFD-4C6F-876F-9B91C395250F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E7AB202-6352-4B8C-BE28-997809A3969F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E7AB202-6352-4B8C-BE28-997809A3969F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E7AB202-6352-4B8C-BE28-997809A3969F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E7AB202-6352-4B8C-BE28-997809A3969F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A81A26DB-A9EA-4474-86D0-872285445025}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A81A26DB-A9EA-4474-86D0-872285445025}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A81A26DB-A9EA-4474-86D0-872285445025}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A81A26DB-A9EA-4474-86D0-872285445025}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0E6A34F7-447F-4F44-B8AB-CD5589F114E1} = {182C3B17-2824-4230-B91B-9188613A73C6}
+		{3E7AB202-6352-4B8C-BE28-997809A3969F} = {182C3B17-2824-4230-B91B-9188613A73C6}
+		{58958F31-266F-4949-A4B8-4C832DB38C6F} = {EBCE7B31-E3D0-4758-8387-35EF61D61514}
+		{A81A26DB-A9EA-4474-86D0-872285445025} = {EBCE7B31-E3D0-4758-8387-35EF61D61514}
+		{B9822BB4-B9B4-47C2-A610-3C18EB432598} = {EBCE7B31-E3D0-4758-8387-35EF61D61514}
+		{42A79EEE-0BFD-4C6F-876F-9B91C395250F} = {EBCE7B31-E3D0-4758-8387-35EF61D61514}
+	EndGlobalSection
+EndGlobal
