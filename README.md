@@ -1,4 +1,18 @@
 # Gomoku Web API
+
+## Origin
+
+
+Gomoku, also called Five in a Row, is an abstract strategy board game. It is traditionally played with Go pieces (black and white stones) on a 15×15 Go board[1][2] while in the past a 19×19 board was standard.[3][4] Because pieces are typically not moved or removed from the board, gomoku may also be played as a paper-and-pencil game. The game is known in several countries under different names.
+
+https://en.wikipedia.org/wiki/Gomoku
+
+Rules
+Players alternate turns placing a stone of their color on an empty intersection. Black plays first. The winner is the first player to form an unbroken line of five stones of their color horizontally, vertically, or diagonally. In some rules, this line must be exactly five stones long; six or more stones in a row does not count as a win and is called an overline.[5][6] If the board is completely filled and no one can make a line of 5 stones, then the game ends in a draw.
+
+### Freestyle gomoku
+Freestyle gomoku has no restrictions on either player and allows a player to win by creating a line of five or more stones, with each player alternating turns placing one stone at a time.
+
 ## Projects
 
 ### Seedwork
@@ -6,7 +20,7 @@ This project contains reusable classes and components to implement value-objects
 <br/>
 
 ### Domain
-Contains business entities relating to database persistence with self-evaluating behaviours and guard clauses.
+Contains business entities relating to database persistence.
 <br/>
 
 ### Infrastructure
@@ -14,7 +28,7 @@ This contains dependencies that are external in nature -- such as database persi
 <br/>
 
 ### Application
-Clean architecture -- this is an overkill but chose to include anyway.
+Clean architecture -- this is an overkill but chose to include anyway with guard-clauses, validation and logging.
 
 ## Local Setup
 
@@ -55,6 +69,11 @@ Why I can't see my project in a `Startup projects` field?
 If you can't see your project in the "Startup project" dropdown, check that your project satisfies the requirements:
 `Microsoft.EntityFrameworkCore.Design` or `Microsoft.EntityFrameworkCore.Tools` NuGet package is installed.
 Project's TargetFramework is at least `netcoreapp3.1`.
+<br/><br/>
+
+#### ON VISUAL STUDIO
+
+Make sure that the start-up project references `Microsoft.EntityFrameworkCore.Design` and/or `Microsoft.EntityFrameworkCore.Tools`
 
 #### Connection String
 
