@@ -222,7 +222,8 @@ This is to update or in the game's jargon -- to attack or to put pebbles on the 
 `api/Game/ed34d543-ef7b-4a60-5b99-08dbc7f546c1?row=5&column=3&playerId=c198b99d-0b80-4bcc-2dfc-08dbc7f546cd`
 
 ### RESPONSE
-This response is big - it has the updated board, the players, the current player (turn), the winner (if gameover) etc.. that can be used for displaying/rendering info
+This response is big - it has the updated board, the players, the current player (turn), the winner (if gameover) etc.. that can be used for displaying/rendering info.
+Use the info from below to do request again until a winner emerge (playerId and gameId == choose row and column)
 
 ```
 {
