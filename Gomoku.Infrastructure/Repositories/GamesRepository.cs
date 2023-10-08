@@ -22,7 +22,10 @@ public class GamesRepository : IGamesRepository
     {
         return await _dbContext.Games
             .Include(i => i.Cells)
-            .Include(i => i.Players)
+            .Include(i => i.PlayerOne)
+            .Include(i => i.PlayerTwo)
             .FirstOrDefaultAsync(i => i.Id == id);
     }
+    
+  
 }

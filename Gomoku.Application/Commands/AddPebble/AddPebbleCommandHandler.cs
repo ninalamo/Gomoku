@@ -46,26 +46,32 @@ public class AddPebbleCommandHandler : IRequestHandler<AddPebbleCommand,CommonRe
 
         if (game.IsGameOver())
         {
-            return CommonResult.Create(new
+            return CommonResult.Create(new object[]
             {
-                Winner = game.GetWinner(),
-                Board = game.Cells,
-                PlayerTurn = "",
-                GameId = game.Id,
-                game.Players
+                new {
+                    Winner = game.GetWinner(),
+                    Board = game.Cells,
+                    PlayerTurn = default(object),
+                    GameId = game.Id,
+                    Players = new[]{game.PlayerOne, game.PlayerTwo}
+                }
             });
         }
 
-        var nextPlayer = await _mediator.Send(new UpdateGameCurrentPlayerCommand(game.Id));//game.GetNextPlayer();
+        var nextPlayer = await _mediator.Send(new UpdateGameCurrentPlayerCommand(game.Id),cancellationToken);//game.GetNextPlayer();
       
-        return CommonResult.Create(new
+        var result = CommonResult.Create(new object []
         {
+            new {
             Winner = game.GetWinner(),
             Board = game.Cells,
             PlayerTurn = nextPlayer,
             GameId = game.Id,
-            game.Players
+            Players = new[]{game.PlayerOne, game.PlayerTwo}
+            }
         });
+
+        return result;
 
     }
 }

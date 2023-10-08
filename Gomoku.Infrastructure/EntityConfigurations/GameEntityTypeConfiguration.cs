@@ -15,6 +15,36 @@ public class GameEntityTypeConfiguration : IEntityTypeConfiguration<Game>
             .FindNavigation(nameof(Game.Cells))
             .SetPropertyAccessMode(PropertyAccessMode.Field);
 
+        // builder.Property<Guid>("_playerOneId")
+        //     .UsePropertyAccessMode(PropertyAccessMode.Field)
+        //     .HasColumnName("PlayerOneId")
+        //     .IsRequired();
+        //
+        // builder.HasOne<Player>()
+        //     .WithMany()
+        //     .HasForeignKey("_playerOneId")
+        //     .OnDelete(DeleteBehavior.NoAction);
+        //
+        // builder.Property<Guid>("_playerTwoId")
+        //     .UsePropertyAccessMode(PropertyAccessMode.Field)
+        //     .HasColumnName("PlayerTwoId")
+        //     .IsRequired();
+        //
+        // builder.HasOne<Player>()
+        //     .WithMany()
+        //     .HasForeignKey("_playerTwoId")
+        //     .OnDelete(DeleteBehavior.NoAction);
+        //
+        
+        builder.HasOne(b => b.PlayerTwo)
+            .WithMany()
+            .HasForeignKey("PlayerOneId")
+            .OnDelete(DeleteBehavior.NoAction);
+        builder.HasOne(b => b.PlayerTwo)
+            .WithMany()
+            .HasForeignKey("PlayerTwoId")
+            .OnDelete(DeleteBehavior.NoAction);
+
     }
 }
 
@@ -24,6 +54,8 @@ public class PlayerEntityTypeConfiguration : IEntityTypeConfiguration<Player>
     {
         builder.ToTable("player", "dbo");
         builder.HasKey(a => a.Id);
+        
+     
     }
 }
 

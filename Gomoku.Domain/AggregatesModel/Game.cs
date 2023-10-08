@@ -15,39 +15,28 @@ public class Game : Entity, IAggregateRoot
     public const int CELLCOUNT = BOARDSIZE * BOARDSIZE;
     #endregion
     
-    private readonly Player _playerOne;
-    private readonly Player _playerTwo;
+    public Player PlayerOne { get; private set; }
+    public Player PlayerTwo { get; private set; }
 
     private readonly List<Cell> _cells;
     public IReadOnlyCollection<Cell> Cells => _cells.AsReadOnly();
-
-    private readonly List<Player> _players;
-    public IReadOnlyCollection<Player> Players => _players.AsReadOnly();
-
- 
-    public Guid Id { get; private set; }
-
+    
     public Guid CurrentPlayerId { get; private set; }
 
     #region Ctor
 
-    private Game()
+    public Game()
     {
         _cells = new List<Cell>();
-        _players = new List<Player>();
-        InitializeBoard();
     }
     
     public Game(string player1, string player2) : this()
     {
         if (player1 == player2) throw new ArgumentException("Player names should not be the same.");
 
-        _playerOne = new(player1);
-        _playerTwo = new(player2);
-
-        _players.AddRange(new[]{_playerOne,_playerTwo});
-
-       
+        PlayerOne = new(player1);
+        PlayerTwo = new(player2);
+      
     }
 
     #endregion
@@ -120,7 +109,7 @@ public class Game : Entity, IAggregateRoot
     {
         if (HasWinner())
         {
-            return CurrentPlayerId == _players.FirstOrDefault().Id ? _players.FirstOrDefault() : _players.LastOrDefault();
+            return CurrentPlayerId == PlayerOne.Id ? PlayerOne : PlayerTwo;
         }
 
         return null;
@@ -134,40 +123,27 @@ public class Game : Entity, IAggregateRoot
     {
         if (CurrentPlayerId == default) return RandomizeFirstPlayer();
 
-        if (CurrentPlayerId ==  _playerOne.Id)
+        if (CurrentPlayerId ==  PlayerOne.Id)
         {
-            CurrentPlayerId = _players.LastOrDefault().Id;
-            return _players.LastOrDefault();
+            CurrentPlayerId = PlayerTwo.Id;
+            return PlayerTwo;
         }
         
-        CurrentPlayerId = _playerOne.Id;
-        return _players.FirstOrDefault();
+        CurrentPlayerId = PlayerOne.Id;
+        return PlayerOne;
     }
 
-    public Player GetPlayerOne() => _playerOne;
-    public Player GetPlayerTwo() => _playerTwo;
+    public Player GetPlayerOne() => PlayerOne;
+    public Player GetPlayerTwo() => PlayerTwo;
 
-    public Player GetPlayerById(Guid id)
-    {
-        return _players.Single(i => i.Id == id);
-    }
-    
-    public Player GetPlayerByColor(Pebbles color)
-    {
-        return _players.Single(i => i.Color == color);
-    }
-    
-    public Player GetPlayerByName(string name)
-    {
-        return _players.Single(i =>i.Name == name);
-    }
+  
     
     /// <summary>
     /// Creates the board
     /// </summary>
     /// <param name="playerOne"></param>
     /// <param name="playerTwo"></param>
-    private void InitializeBoard()
+    public void InitializeBoard()
     {
         for (int row = 0; row < BOARDSIZE; row++)
         {
@@ -189,18 +165,18 @@ public class Game : Entity, IAggregateRoot
         var random = new Random().Next(1, 2);
         if (random == 1)
         {
-            _playerOne.SetColor(Pebbles.Black);
-            _playerTwo.SetColor(Pebbles.White);
-            CurrentPlayerId = _playerOne.Id;
+            PlayerOne.SetColor(Pebbles.Black);
+            PlayerTwo.SetColor(Pebbles.White);
+            CurrentPlayerId = PlayerOne.Id;
             
-            return _playerOne;
+            return PlayerOne;
         }
 
-        _playerOne.SetColor(Pebbles.White);
-        _playerTwo.SetColor(Pebbles.Black);
-        CurrentPlayerId = _playerTwo.Id;
+        PlayerOne.SetColor(Pebbles.White);
+        PlayerTwo.SetColor(Pebbles.Black);
+        CurrentPlayerId = PlayerTwo.Id;
         
-        return _playerTwo;
+        return PlayerTwo;
     }
     
     /// <summary>
@@ -212,8 +188,8 @@ public class Game : Entity, IAggregateRoot
     /// <exception cref="InvalidOperationException"></exception>
     private Cell GetCell(int row, int col)
     {
-        var cell = _cells.SingleOrDefault(i => i.Row == row && i.Column == col);
-        return cell;
+        var cell = _cells.Where(i => i.Row == row && i.Column == col && !i.IsTransient());
+        return cell.FirstOrDefault();
     }
     
     /// <summary>
@@ -222,7 +198,7 @@ public class Game : Entity, IAggregateRoot
     /// <returns></returns>
     private bool HasWinner() =>  CheckHorizontalWin() || CheckVerticalWin() || CheckDiagonalWin();
     
-    private Player GetCurrentPlayer() => CurrentPlayerId == _playerOne.Id ? _playerOne : _playerTwo;
+    private Player GetCurrentPlayer() => CurrentPlayerId == PlayerOne.Id ? PlayerOne : PlayerTwo;
     
     /// <summary>
     /// 5 consecutive pebble in a horizontal pattern

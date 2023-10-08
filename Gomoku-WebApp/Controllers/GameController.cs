@@ -1,9 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Gomoku_WebApp.Models;
+using Gomoku.Application.Commands.AddGame;
+using Gomoku.Application.Commands.AddPebble;
+using Gomoku.Application.Commands.UpdateNextPlayer;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Gomoku_WebApp.Controllers
@@ -13,42 +12,50 @@ namespace Gomoku_WebApp.Controllers
     public class GameController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly ILogger<GameController> _logger;
 
-        public GameController(IMediator mediator)
+        public GameController(IMediator mediator, ILogger<GameController> logger)
         {
             _mediator = mediator;
-        }
-        // GET: api/Game
-        [HttpGet]
-        
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
+            _logger = logger;
         }
 
-        // GET: api/Game/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST: api/Game
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> CreateGame([FromBody] CreateGameDto model)
         {
+            _logger.LogInformation($"Request received in {nameof(CreateGameDto)}");
+
+            var result = await _mediator.Send(new AddGameCommand(model.PlayerOne, model.PlayerTwo));
+
+            return Ok(ResponseDto.Success(new []
+            {
+                new {result.GameId, Board = result.Cells}
+            }));
+
         }
 
-        // PUT: api/Game/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> PutPebble([FromRoute]Guid id, [FromQuery]int row, [FromQuery]int column,  [FromQuery]Guid playerId)
         {
+            _logger.LogInformation($"Request received in {nameof(PutPebble)}");
+
+            var result = await _mediator.Send(new AddPebbleCommand(row, column, id, playerId));
+
+            return Ok(ResponseDto.Success(result));
+
         }
 
-        // DELETE: api/Game/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetNextPlayer(Guid id)
         {
+            _logger.LogInformation($"Request received in {nameof(GetNextPlayer)}");
+
+            var result = await _mediator.Send(new UpdateGameCurrentPlayerCommand(id));
+
+            return Ok(ResponseDto.Success(result));
+
         }
+        
+        
     }
 }

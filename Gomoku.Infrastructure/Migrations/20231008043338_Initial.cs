@@ -15,16 +15,45 @@ namespace Gomoku.Infrastructure.Migrations
                 name: "dbo");
 
             migrationBuilder.CreateTable(
+                name: "player",
+                schema: "dbo",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Color = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_player", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "game",
                 schema: "dbo",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PlayerOneId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PlayerTwoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CurrentPlayerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_game", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_game_player_PlayerOneId",
+                        column: x => x.PlayerOneId,
+                        principalSchema: "dbo",
+                        principalTable: "player",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_game_player_PlayerTwoId",
+                        column: x => x.PlayerTwoId,
+                        principalSchema: "dbo",
+                        principalTable: "player",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -50,27 +79,6 @@ namespace Gomoku.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "player",
-                schema: "dbo",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Color = table.Column<int>(type: "int", nullable: false),
-                    GameId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_player", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_player_game_GameId",
-                        column: x => x.GameId,
-                        principalSchema: "dbo",
-                        principalTable: "game",
-                        principalColumn: "Id");
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_cell_GameId",
                 schema: "dbo",
@@ -78,10 +86,16 @@ namespace Gomoku.Infrastructure.Migrations
                 column: "GameId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_player_GameId",
+                name: "IX_game_PlayerOneId",
                 schema: "dbo",
-                table: "player",
-                column: "GameId");
+                table: "game",
+                column: "PlayerOneId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_game_PlayerTwoId",
+                schema: "dbo",
+                table: "game",
+                column: "PlayerTwoId");
         }
 
         /// <inheritdoc />
@@ -92,11 +106,11 @@ namespace Gomoku.Infrastructure.Migrations
                 schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "player",
+                name: "game",
                 schema: "dbo");
 
             migrationBuilder.DropTable(
-                name: "game",
+                name: "player",
                 schema: "dbo");
         }
     }

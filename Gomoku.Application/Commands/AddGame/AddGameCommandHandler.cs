@@ -19,6 +19,8 @@ public class AddGameCommandHandler : IRequestHandler<AddGameCommand,AddGameComma
     public async Task<AddGameCommandResult> Handle(AddGameCommand request, CancellationToken cancellationToken)
     {
         Game game = new(request.PlayerOne, request.PlayerTwo);
+        
+        game.InitializeBoard();
 
         _repository.Create(game);
 

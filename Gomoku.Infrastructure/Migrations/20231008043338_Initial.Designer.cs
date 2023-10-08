@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gomoku.Infrastructure.Migrations
 {
     [DbContext(typeof(GameContext))]
-    [Migration("20231007133952_Initial")]
+    [Migration("20231008043338_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -61,7 +61,17 @@ namespace Gomoku.Infrastructure.Migrations
                     b.Property<Guid>("CurrentPlayerId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("PlayerOneId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("PlayerTwoId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PlayerOneId");
+
+                    b.HasIndex("PlayerTwoId");
 
                     b.ToTable("game", "dbo");
                 });
@@ -75,16 +85,11 @@ namespace Gomoku.Infrastructure.Migrations
                     b.Property<int>("Color")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("GameId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("GameId");
 
                     b.ToTable("player", "dbo");
                 });
@@ -98,18 +103,28 @@ namespace Gomoku.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Gomoku.Domain.AggregatesModel.Player", b =>
+            modelBuilder.Entity("Gomoku.Domain.AggregatesModel.Game", b =>
                 {
-                    b.HasOne("Gomoku.Domain.AggregatesModel.Game", null)
-                        .WithMany("Players")
-                        .HasForeignKey("GameId");
+                    b.HasOne("Gomoku.Domain.AggregatesModel.Player", "PlayerOne")
+                        .WithMany()
+                        .HasForeignKey("PlayerOneId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Gomoku.Domain.AggregatesModel.Player", "PlayerTwo")
+                        .WithMany()
+                        .HasForeignKey("PlayerTwoId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("PlayerOne");
+
+                    b.Navigation("PlayerTwo");
                 });
 
             modelBuilder.Entity("Gomoku.Domain.AggregatesModel.Game", b =>
                 {
                     b.Navigation("Cells");
-
-                    b.Navigation("Players");
                 });
 #pragma warning restore 612, 618
         }
