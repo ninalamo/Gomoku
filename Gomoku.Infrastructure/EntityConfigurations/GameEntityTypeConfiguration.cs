@@ -12,29 +12,8 @@ public class GameEntityTypeConfiguration : IEntityTypeConfiguration<Game>
         builder.HasKey(a => a.Id);
        
         builder.Metadata
-            .FindNavigation(nameof(Game.Cells))
+            .FindNavigation(nameof(Game.Cells))!
             .SetPropertyAccessMode(PropertyAccessMode.Field);
-
-        // builder.Property<Guid>("_playerOneId")
-        //     .UsePropertyAccessMode(PropertyAccessMode.Field)
-        //     .HasColumnName("PlayerOneId")
-        //     .IsRequired();
-        //
-        // builder.HasOne<Player>()
-        //     .WithMany()
-        //     .HasForeignKey("_playerOneId")
-        //     .OnDelete(DeleteBehavior.NoAction);
-        //
-        // builder.Property<Guid>("_playerTwoId")
-        //     .UsePropertyAccessMode(PropertyAccessMode.Field)
-        //     .HasColumnName("PlayerTwoId")
-        //     .IsRequired();
-        //
-        // builder.HasOne<Player>()
-        //     .WithMany()
-        //     .HasForeignKey("_playerTwoId")
-        //     .OnDelete(DeleteBehavior.NoAction);
-        //
         
         builder.HasOne(b => b.PlayerTwo)
             .WithMany()

@@ -39,7 +39,7 @@ public class GamesRepositoryTest
     {
         // Arrange
         var game = new Game("P1", "P2");
-
+        game.InitializeBoard();
         // Act
         var createdGame = _repository.Create(game);
         await _repository.UnitOfWork.SaveChangesAsync(CancellationToken.None);
@@ -82,6 +82,7 @@ public class GamesRepositoryTest
     public async Task CanHaveAWinner()
     {
         var game = new Game("P1", "P2");
+        game.InitializeBoard();
         var createdGame = _repository.Create(game);
         await _repository.UnitOfWork.SaveChangesAsync(CancellationToken.None);
 

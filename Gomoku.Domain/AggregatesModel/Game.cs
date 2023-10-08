@@ -49,7 +49,7 @@ public class Game : Entity, IAggregateRoot
     {
         if (!_cells.Any()) return UNINITIALIZED;
 
-        if (_cells.Count() != CELLCOUNT) return INVALID;
+        if (_cells.Count != CELLCOUNT) return INVALID;
         
         if (_cells.Count(i => i.Color != Pebbles.Empty) == Game.CELLCOUNT) return FULL;
 
@@ -188,8 +188,8 @@ public class Game : Entity, IAggregateRoot
     /// <exception cref="InvalidOperationException"></exception>
     private Cell GetCell(int row, int col)
     {
-        var cell = _cells.Where(i => i.Row == row && i.Column == col && !i.IsTransient());
-        return cell.FirstOrDefault();
+        var cell = _cells.SingleOrDefault(i => i.Row == row && i.Column == col );
+        return cell;
     }
     
     /// <summary>

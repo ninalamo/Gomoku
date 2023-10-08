@@ -1,4 +1,5 @@
 using FluentValidation;
+using Gomoku_WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Gomoku_WebApp;

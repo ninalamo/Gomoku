@@ -1,5 +1,7 @@
 using System.Text.Json.Serialization;
 
+namespace Gomoku_WebApp.Models;
+
 public record ResponseDto
 {
     [JsonPropertyName("error_message")]

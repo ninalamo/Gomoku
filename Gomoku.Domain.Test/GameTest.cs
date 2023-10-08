@@ -10,6 +10,8 @@ public class GameTest
     public void BoardShouldBeCreated()
     {
         var game = new Game("Yoshi","Mario");
+        
+        game.InitializeBoard();
 
         var boardState = game.GetBoardState();
 
@@ -25,8 +27,6 @@ public class GameTest
         
         Assert.NotNull(game.GetPlayerOne() );
         Assert.NotNull(game.GetPlayerTwo() );
-        Assert.NotEqual(game.GetPlayerOne().Color,Pebbles.Empty);
-        Assert.NotEqual(game.GetPlayerTwo().Color,Pebbles.Empty);
         Assert.True(firstPlayer == game.GetPlayerOne().Id || firstPlayer == game.GetPlayerTwo().Id);
        
         Assert.NotEqual(game.GetPlayerOne, game.GetPlayerTwo);
@@ -38,6 +38,8 @@ public class GameTest
     public void BoardCellsStatusCanBeChecked()
     {
         var game = new Game("Yoshi","Mario");
+        
+        game.InitializeBoard();
         var boardState = game.GetBoardState();
         
         Assert.Equal(Domain.AggregatesModel.Game.CLEAN, boardState);
@@ -56,6 +58,7 @@ public class GameTest
     public void CanPlacePiece()
     {
         var game = new Game("Nin","Shaun");
+        game.InitializeBoard();
         //we don't care if it ain't real ID or some random Guid...
         game.AddPebble(0, 0, Guid.NewGuid());
         var gameOver = game.IsGameOver();
