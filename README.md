@@ -110,30 +110,6 @@ docker run -d --name sql_server -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=someThingComp
 
 <br/>
 
-### Debugging on Mac
-
-Read this: https://learn.microsoft.com/en-us/aspnet/core/grpc/troubleshoot?view=aspnetcore-7.0#unable-to-start-aspnet-core-grpc-app-on-macos
-
-This will allow to debug locally on Mac but had to run only on HTTP only.
-
-#### Code snippet
-
-```
-if (System.OperatingSystem.IsMacOS())
-{
-    builder.WebHost.ConfigureKestrel(options =>
-    {
-        // Setup a HTTP/2 endpoint without TLS.
-        options.ListenLocalhost(5050, o => o.Protocols = HttpProtocols.Http2);
-    });
-}
-```
 
 ### Note on Password Strength
 If you find your image starts but then immediately stops or you get an error such as setup failed with error code 1`, then it may be you haven't created a strong enough password. SQL Server really means it when it requests a strong password. Ensure good length with a mixture of upper and lower case, and a mix of alphanumeric characters. For more information on password requirements take a look at the Microsoft documentation.
-
-### Logging
-
-https://blog.datalust.co/using-serilog-in-net-6/
-
-https://hub.docker.com/r/datalust/seq
